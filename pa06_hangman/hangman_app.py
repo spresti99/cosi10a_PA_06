@@ -1,5 +1,5 @@
 """
-   hangman_app.py is an app for playing hangman in the terminal
+   Miranda and Sonia's hangman_app.py is an app for playing hangman in the terminal
    it is also used as a module in the hangman_webapp flask app
 """
 
