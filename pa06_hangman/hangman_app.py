@@ -1,6 +1,8 @@
 """
    Miranda and Sonia's (are the best) hangman_app.py is an app for playing hangman in the terminal
    it is also used as a module in the hangman_webapp flask app
+
+   change
 """
 
 def generate_random_word():
