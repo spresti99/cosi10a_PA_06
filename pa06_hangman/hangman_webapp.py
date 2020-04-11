@@ -42,8 +42,20 @@ def hangman():
 		state['guesses'] += [letter]
 		return render_template('play.html',state=state)
 
+@app.route('/miranda')
+def miranda():
+	""" generates a bio page with links and images """
+	return render_template('miranda.html')
 
+@app.route('/sonia')
+def sonia():
+	""" generates a bio page with links and images """
+	return render_template('sonia.html')
 
+@app.route('/charisma')
+def charisma():
+	""" generates a bio page with links and images """
+	return render_template('charisma.html')
 
 if __name__ == '__main__':
     app.run('0.0.0.0',port=3000)
