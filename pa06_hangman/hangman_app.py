@@ -23,10 +23,12 @@ def print_word(word, guessed_letter, blank):
             if word[n] == guessed_letter:
                 blank[n] = guessed_letter
         seperator = ' '
-        print(seperator.join(blank))
+        x = seperator.join(blank)
     else:
         seperator = ' '
-        print(seperator.join(blank))
+        x = seperator.join(blank)
+    print(x)
+    return x
 
 
 

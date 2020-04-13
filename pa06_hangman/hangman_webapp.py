@@ -9,9 +9,13 @@ app = Flask(__name__)
 
 #global state
 state = {'guesses':[],
-         'word':"interesting",
+		 'word':"interesting",
 		 'word_so_far':"-----------",
-		 'done':False} #this defines the variables
+		 'done':False,
+		 'letters_in_word': [],
+		 'guess_all': [],
+		 'blank':'',
+		 'message':''} #this defines the variables
 
 @app.route('/')
 @app.route('/main')
@@ -22,6 +26,7 @@ def main():
 def play():
 	global state
 	state['word']=hangman_app.generate_random_word() #calls a function in hangman_app.py
+	state['blank']=list(len(state['word'])*'_')
 	state['guesses'] = []
 	return render_template("start.html",state=state)
 
@@ -34,12 +39,40 @@ def hangman():
 
 	elif request.method == 'POST':
 		letter = request.form['guess']
+		if letter in state['guesses']:
+			state['message'] = ("You already guessed "+letter)
+		elif letter not in state['word']:
+			state['guesses'].append(letter)
+			state['message']=letter+' is not in the word.'
+		else:
+			state['guesses'].append(letter)
+			state['message'] = letter+' is in the word!'
+		state['word_so_far'] = hangman_app.print_word(state['word'], letter, state['blank'])
+
+		def letters_in_word():
+			letters_in_word = []
+			for i in range(0,len(state['word'])):
+				letters_in_word.append(state['word'][i])
+			return letters_in_word
+
+		state['letters_in_word'] = letters_in_word()
+
+		for i in range(0,len(state['word'])):
+			if state['word'][i] in state['guesses']:
+				state['guess_all'].append(state['word'][i])
+
+		#if all the letters in the word have been guessed, then you win
+		#else if there are no more guesses left then you lose
+		#the else statement lets you guess another letter if you haven't won yet and you still have guesses remaining
+		if state['guess_all'] == state['letters_in_word']:
+			state['word_so_far'] = state['word']
+			state['message'] = 'You win!'
+			done=True
 		# check if letter has already been guessed
 		# and generate a response to guess again
 		# else check if letter is in word
 		# then see if the word is complete
 		# if letter not in word, then tell them
-		state['guesses'] += [letter]
 		return render_template('play.html',state=state)
 
 @app.route('/miranda')
@@ -58,4 +91,4 @@ def charisma():
 	return render_template('charisma.html')
 
 if __name__ == '__main__':
-    app.run('0.0.0.0',port=3000)
+	app.run('0.0.0.0',port=3000)
