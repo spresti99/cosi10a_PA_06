@@ -57,6 +57,8 @@ def hangman():
 
 		state['letters_in_word'] = letters_in_word()
 
+		state['guess_all'] = []
+
 		for i in range(0,len(state['word'])):
 			if state['word'][i] in state['guesses']:
 				state['guess_all'].append(state['word'][i])
@@ -91,4 +93,4 @@ def charisma():
 	return render_template('charisma.html')
 
 if __name__ == '__main__':
-	app.run('0.0.0.0',port=3000)
+	app.run(port=3000)
