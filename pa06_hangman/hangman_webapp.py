@@ -74,10 +74,12 @@ def hangman():
 		if state['guess_all'] == state['letters_in_word']:
 			state['word_so_far'] = state['word']
 			state['message'] = 'You win!'
+			state['guesses_left'] = 6
 
 		elif state['guesses_left'] == 0:
 			state['message'] = 'You lose :('
 			state['word_so_far'] = 'the answer was: ' + state['word']
+			state['guesses_left'] = 6
 		# check if letter has already been guessed
 		# and generate a response to guess again
 		# else check if letter is in word
@@ -102,8 +104,8 @@ def charisma():
 
 @app.route('/about')
 def about():
-    """generates an about page with information about the game"""
-    return render_template('about.html')
+	"""generates an about page with information about the game"""
+	return render_template('about.html')
 
 if __name__ == '__main__':
 	app.run(port=3000)
