@@ -92,5 +92,10 @@ def charisma():
 	""" generates a bio page with links and images """
 	return render_template('charisma.html')
 
+@app.route('/about')
+def about():
+    """generates an about page with information about the game"""
+    return render_template('about.html')
+
 if __name__ == '__main__':
 	app.run(port=3000)
