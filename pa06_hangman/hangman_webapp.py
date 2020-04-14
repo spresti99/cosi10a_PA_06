@@ -29,6 +29,7 @@ def play():
 	global state
 	state['word']=hangman_app.generate_random_word() #calls a function in hangman_app.py
 	state['blank']=list(len(state['word'])*'_')
+	state['word_so_far'] = hangman_app.print_blank(state['word'])
 	state['guesses'] = []
 	return render_template("start.html",state=state)
 
@@ -73,11 +74,10 @@ def hangman():
 		if state['guess_all'] == state['letters_in_word']:
 			state['word_so_far'] = state['word']
 			state['message'] = 'You win!'
-			#done=True
+
 		elif state['guesses_left'] == 0:
 			state['message'] = 'You lose :('
 			state['word_so_far'] = 'the answer was: ' + state['word']
-			#done=True
 		# check if letter has already been guessed
 		# and generate a response to guess again
 		# else check if letter is in word

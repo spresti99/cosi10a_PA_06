@@ -30,6 +30,11 @@ def print_word(word, guessed_letter, blank):
     print(x)
     return x
 
+def print_blank(word):
+    blank = list(len(word)*'_')
+    seperator = ' '
+    x = seperator.join(blank)
+    return x
 
 
 def play_hangman():
