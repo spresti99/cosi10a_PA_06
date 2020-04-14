@@ -15,7 +15,9 @@ state = {'guesses':[],
 		 'letters_in_word': [],
 		 'guess_all': [],
 		 'blank':'',
-		 'message':''} #this defines the variables
+		 'message':'',
+		 'guesses_left':6
+		 } #this defines the variables
 
 @app.route('/')
 @app.route('/main')
@@ -40,8 +42,10 @@ def hangman():
 	elif request.method == 'POST':
 		letter = request.form['guess']
 		if letter in state['guesses']:
+			state['guesses_left'] = state['guesses_left'] - 1
 			state['message'] = ("You already guessed "+letter)
 		elif letter not in state['word']:
+			state['guesses_left'] = state['guesses_left'] - 1
 			state['guesses'].append(letter)
 			state['message']=letter+' is not in the word.'
 		else:
@@ -69,7 +73,11 @@ def hangman():
 		if state['guess_all'] == state['letters_in_word']:
 			state['word_so_far'] = state['word']
 			state['message'] = 'You win!'
-			done=True
+			#done=True
+		elif state['guesses_left'] == 0:
+			state['message'] = 'You lose :('
+			state['word_so_far'] = 'the answer was: ' + state['word']
+			#done=True
 		# check if letter has already been guessed
 		# and generate a response to guess again
 		# else check if letter is in word
