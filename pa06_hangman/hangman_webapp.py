@@ -95,12 +95,7 @@ def miranda():
 @app.route('/sonia')
 def sonia():
 	""" generates a bio page with links and images """
-	soniapage=2
-	pictureWidth=300
-	pictureheight=300
-	pictureUrl="https://images.unsplash.com/photo-1501003878151-d3cb87799705?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
-	# pictureUrl="https://i.imgur.com/IMQTZpR.jpg"
-	return render_template("sonia.html", testvalue=soniapage, picUrl=pictureUrl, pwidth=pictureWidth, pheight=pictureheight)
+	return render_template('sonia.html')
 
 @app.route('/charisma')
 def charisma():
